@@ -6,7 +6,7 @@ from chain_utils import balance, gas_balance
 from chains_config import chains_config
 from stargate import *
 
-
+SWAP_NUM = None
 DRY_RUN = True
 SWAP_RETRIES = 2
 SWAP_RETRY_DELAY_SEC = 15
@@ -78,7 +78,9 @@ def possible_swaps(priv_key, balances, gas):
 def swap_decision(possible_swaps):
     if len(possible_swaps) == 0:
         return None
-    return random.choice(possible_swaps)
+    if SWAP_NUM == None:
+        return random.choice(possible_swaps)
+    return possible_swaps[SWAP_NUM]
 
 def fulfill_swap(swap_args, key):
     def op():
@@ -87,8 +89,8 @@ def fulfill_swap(swap_args, key):
                     swap_args['NET'],
                     swap_args['DEST_NET'],
                     swap_args['TOKEN'], 
-                    int(swap_args['BALANCE'] * 0.5), 
-                    int(swap_args['BALANCE'] * 0.4), 
+                    int(swap_args['BALANCE']), 
+                    int(swap_args['BALANCE'] * 0.9), 
                     key,
                 )
         except Exception as e:
@@ -152,6 +154,6 @@ if __name__ == '__main__':
         else:
             print('nothing has been swapped')
             continue
-        sec = random.randrange(120, 240)
+        sec = random.randrange(240, 360)
         print(f'sleeping {sec} seconds ...')
         time.sleep(sec)

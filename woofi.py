@@ -64,7 +64,7 @@ def woofi_swap(privatekey, chain, from_token, to_token, amount):
         print('tx failed')
 
 
-@retry(stop=stop_after_attempt(2), wait=wait_random(min=60, max=120))
+# @retry(stop=stop_after_attempt(2), wait=wait_random(min=60, max=120))
 def woofi_bridge(privatekey, from_chain, to_chain, from_token, to_token, amount):
     woofi_bridge_contract = woofi_bridge_config[from_chain]['CONTRACT']
     from_chain_conf = chains_config[from_chain]
@@ -100,7 +100,7 @@ def woofi_bridge(privatekey, from_chain, to_chain, from_token, to_token, amount)
         from_token_address,
         from_bridge_token_address,
         amount,
-        int(min_from_bridge_amount * 0.7),
+        int(min_from_bridge_amount),
     ]
 
     to_bridge_token_address = to_chain_conf['TOKEN_ADDRESSES']['USDC']
@@ -142,16 +142,20 @@ def woofi_bridge(privatekey, from_chain, to_chain, from_token, to_token, amount)
             'gas': 0,
         }
     )
+    print(contract_txn)
     contract_txn = add_gas_limit(from_chain_w3, contract_txn)
 
     signed_tx = from_chain_w3.eth.account.sign_transaction(contract_txn, privatekey)
     raw_tx_hash = from_chain_w3.eth.send_raw_transaction(signed_tx.rawTransaction)
     tx_hash = from_chain_w3.to_hex(raw_tx_hash)
 
+    print('poll tx:', tx_hash)
     status = check_status_tx(from_chain_w3, tx_hash)
+    
     if status == 1:
         print('tx succeeded')
     else:
+        pass
         print('tx failed')
     tx_link = from_chain_conf['SCANNER_TX'].format(tx_hash)
     return tx_link

@@ -29,20 +29,20 @@ usdc_arbitrum_contract = arbitrum_w3.eth.contract(address=usdc_arbitrum_address,
 stg_arbitrum_address = arbitrum_w3.to_checksum_address('0x6694340fc020c5E6B96567843da2df01b2CE1eb6')
 stg_arbitrum_contract = arbitrum_w3.eth.contract(address=stg_arbitrum_address, abi=stg_abi)
 
-
-optimism_rpc_url = 'https://optimism-mainnet.infura.io/v3/d3fe6a76886741ffa44f895828edd295'
+# optimism_rpc_url = 'https://optimism-mainnet.infura.io/v3/719eddd190804b75b4da25929ac34850'
+optimism_rpc_url = 'https://opt-mainnet.g.alchemy.com/v2/s_qHGrSG99VckrTEDH12xYn0nPk3WAld'
 optimism_w3 = Web3(Web3.HTTPProvider(optimism_rpc_url))
 usdc_optimism_address = optimism_w3.to_checksum_address('0x7f5c764cbc14f9669b88837ca1490cca17c31607')
 usdc_optimism_contract = optimism_w3.eth.contract(address=usdc_optimism_address, abi=usdc_abi)
 
 
-avalanche_rpc_url = 'https://avalanche-mainnet.infura.io/v3/d3fe6a76886741ffa44f895828edd295'
+avalanche_rpc_url = 'https://avalanche-mainnet.infura.io/v3/719eddd190804b75b4da25929ac34850'
 avalanche_w3 = Web3(Web3.HTTPProvider(avalanche_rpc_url))
 usdc_avalanche_address = avalanche_w3.to_checksum_address('0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E')
 usdc_avalanche_contract = avalanche_w3.eth.contract(address=usdc_avalanche_address, abi=usdc_abi)
 
 
-etherium_rpc_url = 'https://mainnet.infura.io/v3/d3fe6a76886741ffa44f895828edd295'
+etherium_rpc_url = 'https://mainnet.infura.io/v3/719eddd190804b75b4da25929ac34850'
 etherium_w3 = Web3(Web3.HTTPProvider(etherium_rpc_url))
 usdc_etherium_address = etherium_w3.to_checksum_address('0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48')
 usdc_etherium_contract = etherium_w3.eth.contract(address=usdc_etherium_address, abi=usdc_abi)
